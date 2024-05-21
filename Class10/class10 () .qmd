@@ -1,0 +1,162 @@
+---
+title: "Class 10: PDB"
+author: "Linh Tran (PID:A16435846)"
+format: pdf
+---
+# About
+For this class, we will explore the PDB website to analyze proteins.
+
+# Introduction to the RCSB Protein Data Bank (PDB)
+
+## PDB Statistics
+>Q1: What percentage of structures in the PDB are solved by X-Ray and Electron Microscopy.
+
+```{r}
+library(readr)
+CSV<- read_csv("Data Export Summary.csv")
+CSV
+```
+Percentage solved by EM and X-ray
+```{r}
+sum(CSV$`X-ray`, CSV$EM)/sum(CSV$Total)*100
+```
+93.34%
+
+
+>Q2: What proportion of structures in the PDB are protein?
+
+Percentage of structures that are protein
+```{r}
+sum(CSV[1:3,2:7])/sum(CSV$Total)*100
+```
+
+
+
+>Q3: Type HIV in the PDB website search box on the home page and determine how many HIV-1 protease structures are in the current PDB?
+
+Based on the search, there are *4445 structures*
+
+## PDB Format
+
+1HSG was downloaded
+
+![1HSG](1HSG.png) 
+
+# Visualizing the HIV-1 protease structure
+## Using Mol*
+Download and moved to Class10 folder
+## The important role of water
+>Q4: Water molecules normally have 3 atoms. Why do we see just one atom per water molecule in this structure?
+
+The resolution is only limited to 2 angstroms. Since oxygen is bigger and H is smaller than 2 angstroms, hydrogens are not shown. 
+
+
+>Q5: There is a critical “conserved” water molecule in the binding site. Can you identify this water molecule? What residue number does this water molecule have
+
+Water 308 makes 4 interactions
+
+>Q6: Generate and save a figure clearly showing the two distinct chains of HIV-protease along with the ligand. You might also consider showing the catalytic residues ASP 25 in each chain and the critical water (we recommend “Ball & Stick” for these side-chains). Add this figure to your Quarto document.
+*Discussion Topic:* Can you think of a way in which indinavir, or even larger ligands and substrates, could enter the binding site?
+
+![1HSG](1HSG copy.png)
+
+>Q7: [Optional] As you have hopefully observed HIV protease is a homodimer (i.e. it is composed of two identical chains). With the aid of the graphic display can you identify secondary structure elements that are likely to only form in the dimer rather than the monomer?
+
+# Introduction to Bio3D in R
+
+```{r}
+library(bio3d)
+```
+
+## Reading PDB file data into R
+
+```{r}
+pdb <- read.pdb("1hsg")
+pdb
+```
+
+>Q7: How many amino acid residues are there in this pdb object? 
+
+There are 198 amino acid residues.
+
+>Q8: Name one of the two non-protein residues? 
+
+MK1 is a non-protein residue.
+
+>Q9: How many protein chains are in this structure?
+
+There are 2 protein chains.
+
+
+We can lok at the attributes with `attributes()` and get access to a particular attribute with `pdb$attribute`
+
+```{r}
+attributes(pdb)
+```
+```{r}
+head(pdb$atom)
+```
+
+
+## Predicting functional motions of a single structure
+Next, We read a new PDB structure of Adenylate Kinase
+```{r}
+adk <- read.pdb("6s36")
+adk
+```
+
+We can then perform Normal mode analysis (NMA) and plot it with this PDB 
+
+```{r}
+m <- nma(adk)
+```
+```{r}
+plot(m)
+```
+
+We can also view a "movie" of these predicted motions by generating a molecular "trajectory" with `mktrj()`
+
+```{r}
+mktrj(m, file="adk_m7.pdb")
+```
+
+File was opened on Mol* and played
+
+# Comparative structure analysis of Adenylate Kinase
+ Here we will work through a complete pipeline of analysis for a given protein family starting form one single database ID for a member of this family all the way to a deeper understanding of structure, dynamics and function.
+ 
+>Q10. Which of the packages above is found only on BioConductor and not CRAN? 
+
+The package found only on BioConductor and not CRAN is *msa*
+
+
+>Q11. Which of the above packages is not found on BioConductor or CRAN?: 
+
+ The package not found on BioConductor or CRAN is *"Grantlab/bio3d-view"*
+
+>Q12. True or False? Functions from the devtools package can be used to install packages from GitHub and BitBucket? 
+
+TRUE
+
+## Search and retrieve ADK structures
+
+```{r}
+library(bio3d)
+id <- "1ake_A"
+aa <- get.seq(id)
+aa
+```
+
+
+## Align and superpose structures
+
+
+
+# Normal mode analysis [optional]
+>Q14. What do you note about this plot? Are the black and colored lines similar or different? Where do you think they differ most and why?
+
+The the black and colored lines seem to have similar shape but the heights (fluctuations) are different. They differ most around residues 30-60 and 120-160.
+
+**Prof. Barry told me to just delete the codes after blast since it didn't work**
+
+
