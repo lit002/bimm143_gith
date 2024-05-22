@@ -1,6 +1,6 @@
 # bimm143_gith
 
-MY work
+My lab works in BIMM143 at UCSD
 
 - Class 4 [Bioinformatics data analysis with R](https://github.com/lit002/bimm143_gith/blob/main/Class04/Class04.Rproj)
 - Class 5 [Data exploration and visualization in R](https://github.com/lit002/bimm143_gith/blob/main/class05/Class05.pdf)
