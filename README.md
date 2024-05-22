@@ -1,6 +1,6 @@
 # bimm143_gith
 
-My lab works in BIMM143 at UCSD
+My lab works for BIMM143 at UCSD
 
 - Class 4 [Bioinformatics data analysis with R](https://github.com/lit002/bimm143_gith/blob/main/Class04/Class04.Rproj)
 - Class 5 [Data exploration and visualization in R](https://github.com/lit002/bimm143_gith/blob/main/class05/Class05.pdf)
@@ -13,3 +13,5 @@ My lab works in BIMM143 at UCSD
 - Class 13 [DESeq]()
 - Class 14 [RNA-Seq analysis mini-project]()
 
+My HW for BIMM143 at UCSD
+- HW 6 [PDB](https://github.com/lit002/bimm143_gith/blob/main/Class06/Class06-HW-Q6.pdf)
